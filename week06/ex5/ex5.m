@@ -47,7 +47,7 @@ pause;
 %  regression. 
 %
 
-theta = [1 ; 1];
+theta = [1; 1];
 J = linearRegCostFunction([ones(m, 1) X], y, theta, 1);
 
 fprintf(['Cost at theta = [1 ; 1]: %f '...
@@ -218,3 +218,11 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+lambda = 3;
+theta = trainLinearReg(X_poly, y, lambda);
+J_test = linearRegCostFunction(X_poly_test, ytest, theta, 0)
+
+% fprintf('Final cost : %f', J_test)
+
+
