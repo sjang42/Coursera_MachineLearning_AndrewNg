@@ -23,11 +23,25 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
-
-
-
-
+total = 8.^2;
+count = 1;
+err = 100000000.0
+candidate = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+for c = candidate
+  for s = candidate
+    printf("[%d/%d]\n", count, total);
+    count += 1;
+    model = svmTrain(X, y, c, @(x1, x2) gaussianKernel(x1, x2, s));
+    predictions = svmPredict(model, Xval);
+    error_now = mean(double(predictions != yval));
+    if (error_now < err)
+      C = c;
+      sigma = s;
+      printf("error change from %f to %f\n", err, error_now);
+      err = error_now;
+      
+    endif
+end
 
 % =========================================================================
 
